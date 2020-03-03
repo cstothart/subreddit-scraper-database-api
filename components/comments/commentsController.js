@@ -19,3 +19,8 @@ exports.getCommentsByAuthor = (req, res) => {
     const { author } = req.params;
     sqlFunctions.selectAllFromWhere(req, res, 'comments', {author});
 }
+
+exports.getCommentsByPage = (req, res) => {
+    const page = req.params.page - 1;
+    sqlFunctions.getByPage(req, res, 'comments', page)
+}

@@ -4,6 +4,8 @@ const router = express.Router();
 
 const commentsController = require('./commentsController');
 
+router.get('/:page', commentsController.getCommentsByPage);
+
 router.get('/id/:comment_id', commentsController.getCommentById);
 
 router.get('/submission_id/:submission_id', 
