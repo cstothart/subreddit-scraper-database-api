@@ -4,10 +4,10 @@ exports.selectAllFromWhere = (req, res, from, where) => {
     db.select('*').from(from).where(where)
     .then(result => {
         if(result.length) {
-            res.status(200).json(result[0]);
+            res.status(200).json(result);
         } else {
-            res.status(400).json('Not found.')
+            res.status(404).send('<strong>Not Found</strong>')
         }
     })
-    .catch(err => res.status(400).json('Unexpected error.'))
+    .catch(err => res.status(500).send('<strong>Unexpected Error</strong>'))
 }

@@ -4,6 +4,8 @@ const router = express.Router();
 
 const submissionsController = require('./submissionsController');
 
-router.get('/:submission_id', submissionsController.getSubmissionById);
+router.get('/id/:submission_id', submissionsController.getSubmissionById);
+
+router.get('/author/:author', submissionsController.getSubmissionsByAuthor);
 
 module.exports = router;
