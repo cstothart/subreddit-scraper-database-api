@@ -1,0 +1,17 @@
+const express = require('express');
+
+const router = express.Router();
+
+const commentsController = require('./commentsController');
+
+router.get('/id/:comment_id', commentsController.getCommentById);
+
+router.get('/submission_id/:submission_id', 
+           commentsController.getCommentBySubmissionId);
+
+router.get('/parent_id/:parent_id', 
+           commentsController.getCommentByParentId);           
+
+router.get('/author/:author', commentsController.getCommentsByAuthor);
+
+module.exports = router;

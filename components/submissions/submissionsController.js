@@ -1,8 +1,9 @@
 const sqlFunctions = require('../../util/sqlFunctions');
 
 exports.getSubmissionById = (req, res) => {
-    const { submission_id } = req.params;
-    sqlFunctions.selectAllFromWhere(req, res, 'submissions', {submission_id});
+    const submission_fullname = req.params.submission_id;
+    sqlFunctions.selectAllFromWhere(req, res, 'submissions', 
+        {submission_fullname});
 }
 
 exports.getSubmissionsByAuthor = (req, res) => {
