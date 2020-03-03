@@ -16,7 +16,7 @@ exports.selectAllFromWhere = (req, res, from, where) => {
 }
 
 exports.getByPage = (req, res, from, page) => {
-    const returnsPerPage = 2;
+    const returnsPerPage = 1000;
     const limitOffset = returnsPerPage*page;
     database
     .select('*')
