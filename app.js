@@ -1,9 +1,12 @@
 const express = require('express');
+const cors = require('cors')
 
 const submissionsRoutes = require('./components/submissions/submissionsRoutes');
 const commentsRoutes = require('./components/comments/commentsRoutes');
 
 const app = express();
+
+app.use(cors());
 
 app.use('/submissions', submissionsRoutes);
 app.use('/comments', commentsRoutes);
