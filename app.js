@@ -1,10 +1,14 @@
 const express = require('express');
 const cors = require('cors')
 
+const apiDbSql = require('./util/apiDbSql');
 const submissionsRoutes = require('./components/submissions/submissionsRoutes');
 const commentsRoutes = require('./components/comments/commentsRoutes');
 
 const app = express();
+
+// Create the dashboard table if it doesn't already exist.
+apiDbSql.createDashboardTable();
 
 app.use(cors());
 

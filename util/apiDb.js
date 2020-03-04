@@ -3,7 +3,7 @@ require('dotenv').config();
 const mysql = require('pg');
 const knex = require('knex');
 
-const db = knex({
+const apiDb = knex({
     client: 'pg',
     connection: {
         host: process.env.API_DB_HOST,
@@ -13,4 +13,4 @@ const db = knex({
     }
 });
 
-module.exports = db;
+module.exports = apiDb;

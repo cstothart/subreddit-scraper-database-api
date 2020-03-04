@@ -33,3 +33,7 @@ exports.getByPage = (req, res, from, page) => {
     })
     .catch(err => res.status(500).send('<strong>Unexpected Error</strong>'));
 }
+
+exports.getDbStats = () => {
+    
+}
