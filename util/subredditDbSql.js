@@ -1,7 +1,7 @@
-const database = require('./database');
+const subredditDb = require('./subredditDb');
 
 exports.selectAllFromWhere = (req, res, from, where) => {
-    database
+    subredditDb
         .select('*')
         .from(from)
         .where(where)
@@ -18,7 +18,7 @@ exports.selectAllFromWhere = (req, res, from, where) => {
 exports.getByPage = (req, res, from, page) => {
     const returnsPerPage = 1000;
     const limitOffset = returnsPerPage*page;
-    database
+    subredditDb
     .select('*')
     .from(from)
     .orderBy('time_entered_into_database')
