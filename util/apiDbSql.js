@@ -28,3 +28,10 @@ exports.createDashboardTable = () => {
         }
     });
 }
+
+exports.getDashboardStats = () => {
+    return apiDb('dashboard')
+        .select('*')
+        .where('id', '=', 1)
+        .then((result) => result[0]);
+}
