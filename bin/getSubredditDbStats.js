@@ -1,0 +1,57 @@
+/* 
+This script is meant to be run by a scheduler (e.g., cron, 
+Heroku Scheduler, etc.).
+*/
+
+const { DateTime } = require('luxon');
+
+const subredditDb = require('../util/subredditDb');
+const apiDb = require('../util/apiDb');
+
+getNumEntries = table => {
+    return subredditDb(table)
+        .count('*')
+        .then((result) => {
+            return result[0]['count(*)'];
+        });
+}
+
+getNumAuthors = table => {
+    return subredditDb(table)
+        .countDistinct('author')
+        .then((result) => {
+            return result[0]['count(distinct `author`)'];
+        });
+}
+
+updateDashboardTable = (stats) => {
+    return apiDb('dashboard')
+        .where('id', '=', 1)
+        .update(stats);
+} 
+
+(async () => {
+
+    const numSubmissions = await getNumEntries('submissions');
+    const numComments = await getNumEntries('comments');
+
+    const numSubmissionAuthors = await getNumAuthors('submissions');
+    const numCommentAuthors = await getNumAuthors('comments');
+
+    const last_updated = DateTime.local().setZone('America/New_York').toISO()
+
+    const stats = {
+        total_submissions: numSubmissions,
+        total_comments: numComments,
+        total_submission_authors: numSubmissionAuthors,
+        total_comment_authors: numCommentAuthors,
+        last_updated: last_updated
+    }
+
+    await updateDashboardTable(stats);
+
+})()
+    .then(() => {
+        subredditDb.destroy();
+        apiDb.destroy();
+    });
