@@ -20,6 +20,13 @@ app.use(cors());
 app.use('/submissions', submissionsRoutes);
 app.use('/comments', commentsRoutes);
 
+app.get('/stats', (req, res) => {
+    (async () => {
+        const stats = await apiDbSql.getDashboardStats();
+        res.status(200).json(stats);
+    })();
+})
+
 app.get('/', (req, res) => {
     (async () => {
         const stats = await apiDbSql.getDashboardStats();
