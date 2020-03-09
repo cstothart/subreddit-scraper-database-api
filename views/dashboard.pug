@@ -18,9 +18,11 @@ html
                     h2 #{index}
                     p #{val}
 
-        .last-updated Last Updated: #{lastUpdated}
+        .last-updated 
+            | Last Updated: 
+            mark #{lastUpdated}
 
-        h1 API Usage
+        h1 Subreddit Database API Endpoints
 
         code
             |/stats  
