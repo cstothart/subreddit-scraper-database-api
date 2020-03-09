@@ -1,3 +1,8 @@
+/* 
+This script is meant to be run by a scheduler (e.g., cron, 
+Heroku Scheduler, etc.).
+*/
+
 const { DateTime } = require('luxon');
 
 const subredditDb = require('../util/subredditDb');
