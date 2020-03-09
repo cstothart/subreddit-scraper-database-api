@@ -38,7 +38,7 @@ updateDashboardTable = (stats) => {
     const numSubmissionAuthors = await getNumAuthors('submissions');
     const numCommentAuthors = await getNumAuthors('comments');
 
-    const last_updated = DateTime.local().setZone('America/New_York').toISO()
+    const last_updated = DateTime.local().setZone('America/Chicago').toISO()
 
     const stats = {
         Submissions: numSubmissions,
