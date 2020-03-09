@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 
 const apiDbSql = require('./util/apiDbSql');
+const generalFunctions = require('./util/generalFunctions');
 const submissionsRoutes = require('./components/submissions/submissionsRoutes');
 const commentsRoutes = require('./components/comments/commentsRoutes');
 
@@ -22,16 +23,19 @@ app.use('/comments', commentsRoutes);
 
 app.get('/stats', (req, res) => {
     (async () => {
-        const stats = await apiDbSql.getDashboardStats();
-        res.status(200).json(stats);
+        const allStats = await apiDbSql.getDashboardStats();
+        res.status(200).json(allStats);
     })();
 })
 
 app.get('/', (req, res) => {
     (async () => {
-        const stats = await apiDbSql.getDashboardStats();
+        const allStats = await apiDbSql.getDashboardStats();
+        const prettyStats = generalFunctions.prettifyStats(allStats);
+        const { id, 'Last Updated': last_updated, ...stats } = prettyStats;
         res.render('dashboard', {
-            stats
+                lastUpdated: prettyStats['Last Updated'],
+                stats: stats
         });
     })();
 });

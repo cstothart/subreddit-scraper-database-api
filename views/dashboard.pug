@@ -9,5 +9,9 @@ html
 
     body
 
-        h1 Subreddit Database Statistics
-        p Total Submissions: #{stats.total_submissions}
+        .stats-container
+            
+            each val, index in stats
+                .stats-item
+                    h2 #{index}
+                    p #{val}
