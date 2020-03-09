@@ -3,11 +3,13 @@ doctype html
 html
 
     head
-        title Subreddit Database Statistics
+        title Subreddit Database Status
         style
             include ../public/main.css
 
     body
+
+        h1 Subreddit Database Status
 
         .stats-container
             
@@ -15,3 +17,5 @@ html
                 .stats-item
                     h2 #{index}
                     p #{val}
+
+        .last-updated Last Updated: #{lastUpdated}

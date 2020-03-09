@@ -41,10 +41,10 @@ updateDashboardTable = (stats) => {
     const last_updated = DateTime.local().setZone('America/New_York').toISO()
 
     const stats = {
-        Total_Submissions: numSubmissions,
-        Total_Comments: numComments,
-        Total_Submission_Authors: numSubmissionAuthors,
-        Total_Comment_Authors: numCommentAuthors,
+        Submissions: numSubmissions,
+        Comments: numComments,
+        Submission_Authors: numSubmissionAuthors,
+        Comment_Authors: numCommentAuthors,
         Last_Updated: last_updated
     }
 

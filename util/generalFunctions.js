@@ -6,7 +6,7 @@ exports.prettifyStats = stats => {
         const newName = pair[0]
             .replace(/_/g, ' ');
         let newValue;
-        if(pair[0] !== 'Last_Updated' || pair[0] !== 'id') {
+        if(pair[0] !== 'Last_Updated' && pair[0] !== 'id') {
             newValue = pair[1]
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
