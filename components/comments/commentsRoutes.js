@@ -3,6 +3,9 @@ const express = require('express');
 const router = express.Router();
 
 const commentsController = require('./commentsController');
+const generalFunctions = require('../../util/generalFunctions');
+
+router.use(generalFunctions.checkForCsv);
 
 router.get('/:page', commentsController.getCommentsByPage);
 

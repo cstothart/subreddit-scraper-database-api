@@ -1,3 +1,5 @@
+const { parse } = require('json2csv');
+
 const subredditDb = require('./subredditDb');
 
 exports.selectAllFromWhere = (req, res, from, where) => {
@@ -7,7 +9,15 @@ exports.selectAllFromWhere = (req, res, from, where) => {
         .where(where)
         .then(result => {
             if(result.length) {
-                res.status(200).json(result);
+                if(req.csv) {
+                    const csv = parse(result);
+                    res.setHeader('Content-disposition', 
+                                'attachment; filename=data.csv');
+                    res.set('Content-Type', 'text/csv');                    
+                    res.status(200).send(csv);
+                } else {
+                    res.status(200).json(result);
+                }
             } else {
                 res.status(404).send('<strong>Not Found</strong>')
             }
@@ -26,7 +36,15 @@ exports.getByPage = (req, res, from, page) => {
         .offset(limitOffset)
         .then(result => {
             if(result.length) {
-                res.status(200).json(result);
+                if(req.csv) {
+                    const csv = parse(result);
+                    res.setHeader('Content-disposition', 
+                                'attachment; filename=data.csv');
+                    res.set('Content-Type', 'text/csv');                    
+                    res.status(200).send(csv);
+                } else {
+                    res.status(200).json(result);
+                }
             } else {
                 res.status(404).send('<strong>Not Found</strong>')
             }

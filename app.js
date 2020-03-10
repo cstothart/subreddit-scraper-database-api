@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const { parse } = require('json2csv');
 
 const apiDbSql = require('./util/apiDbSql');
 const generalFunctions = require('./util/generalFunctions');
@@ -21,10 +22,18 @@ app.use(cors());
 app.use('/submissions', submissionsRoutes);
 app.use('/comments', commentsRoutes);
 
-app.get('/stats', (req, res) => {
+app.get('/stats', generalFunctions.checkForCsv, (req, res) => {
     (async () => {
         const allStats = await apiDbSql.getDashboardStats();
-        res.status(200).json(allStats);
+        if(req.csv) {
+            const csv = parse(allStats);
+            res.setHeader('Content-disposition', 
+                        'attachment; filename=data.csv');
+            res.set('Content-Type', 'text/csv');                    
+            res.status(200).send(csv);
+        } else {
+            res.status(200).json(allStats);
+        }
     })();
 })
 

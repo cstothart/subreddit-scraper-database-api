@@ -3,6 +3,9 @@ const express = require('express');
 const router = express.Router();
 
 const submissionsController = require('./submissionsController');
+const generalFunctions = require('../../util/generalFunctions');
+
+router.use(generalFunctions.checkForCsv);
 
 router.get('/:page', submissionsController.getSubmissionsByPage);
 

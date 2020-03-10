@@ -17,3 +17,8 @@ exports.prettifyStats = stats => {
     });
     return prettyStats;
 }
+
+exports.checkForCsv = (req, res, next) => {
+    'csv' in req.query ? req.csv = true : req.csv = false;
+    next()
+}
