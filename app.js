@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const rateLimit = require("express-rate-limit");
 const { parse } = require('json2csv');
 
 const apiDbSql = require('./util/apiDbSql');
@@ -17,7 +18,13 @@ app.set("views", path.join(__dirname, "views"));
 // Create the dashboard table if it doesn't already exist.
 apiDbSql.createDashboardTable();
 
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 5, // 5 requests,
+});
+
 app.use(cors());
+app.use(limiter);
 
 app.use('/submissions', submissionsRoutes);
 app.use('/comments', commentsRoutes);
