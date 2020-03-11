@@ -1,5 +1,5 @@
 {
-  "name": "army-subreddit-api",
+  "name": "subreddit-scraper-database-api",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cstothart/army-subreddit-api.git"
+    "url": "git+https://github.com/cstothart/subreddit-scraper-database-api.git"
   },
   "keywords": [],
   "author": "",
   "license": "",
   "bugs": {
-    "url": "https://github.com/cstothart/army-subreddit-api/issues"
+    "url": "https://github.com/cstothart/subreddit-scraper-database-api/issues"
   },
-  "homepage": "https://github.com/cstothart/army-subreddit-api#readme",
+  "homepage": "https://github.com/cstothart/subreddit-scraper-database-api#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
