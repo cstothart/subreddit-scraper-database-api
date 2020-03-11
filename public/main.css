@@ -37,13 +37,22 @@ code {
     margin-left: 0;
 }
 
+code mark {
+    color: var(--color-5);
+    background-color: transparent;
+}
+
+p {
+    font-size: var(--font-size-4);
+}
+
 p code {
     display: inline;
 }
 
-code mark {
-    color: var(--color-5);
-    background-color: transparent;
+p mark {
+    color: var(--color-6);
+    background-color: transparent;    
 }
 
 @media (min-width: 800px) {
@@ -75,9 +84,7 @@ h1:first-child {
     margin-left: 0;
 }
 
-p {
-    font-size: var(--font-size-4);
-}
+
 
 .last-updated {
     font-size: var(--font-size-4);

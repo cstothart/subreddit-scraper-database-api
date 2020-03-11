@@ -66,6 +66,13 @@ html
     
     h1 API Request Limit
 
-    p You may only make #{rateLimit.max} API requests every #{rateLimit.windowM} minutes.
-    p You have #{rateLimit.remaining} API requests left until #{rateLimit.resetTime}.                                             
+    p 
+        | You may only make 
+        mark #{rateLimit.max} 
+        | API requests every #{rateLimit.windowM} minutes.
+    p 
+        | You have 
+        mark #{rateLimit.remaining} 
+        | API requests left until 
+        mark #{rateLimit.resetTime}.                                             
         
