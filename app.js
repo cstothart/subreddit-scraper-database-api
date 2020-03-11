@@ -18,9 +18,11 @@ app.set("views", path.join(__dirname, "views"));
 // Create the dashboard table if it doesn't already exist.
 apiDbSql.createDashboardTable();
 
+const windowM = 15;
+const max = 100;
 const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 5, // 5 requests,
+  windowMs: windowM * 60 * 1000,
+  max: max
 });
 
 app.use(cors());
@@ -51,7 +53,8 @@ app.get('/', (req, res) => {
         const { id, 'Last Updated': last_updated, ...stats } = prettyStats;
         res.render('dashboard', {
                 lastUpdated: prettyStats['Last Updated'],
-                stats: stats
+                stats: stats,
+                rateLimit: Object.assign(req.rateLimit, {windowM, max})
         });
     })();
 });

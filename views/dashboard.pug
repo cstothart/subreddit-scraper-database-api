@@ -22,7 +22,7 @@ html
             | Last Updated: 
             mark #{lastUpdated}
 
-        h1 Subreddit Database API Endpoints
+        h1 API Endpoints
 
         p
             | Data is delivered in JSON. Place 
@@ -62,5 +62,10 @@ html
 
         code
             | /comments/parent_id/
-            mark parent_id                                                       
+            mark parent_id   
+    
+    h1 API Request Limit
+
+    p You may only make #{rateLimit.max} API requests every #{rateLimit.windowM} minutes.
+    p You have #{rateLimit.remaining} API requests left until #{rateLimit.resetTime}.                                             
         
