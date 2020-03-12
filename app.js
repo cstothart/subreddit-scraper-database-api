@@ -31,6 +31,11 @@ app.use(limiter);
 app.use('/submissions', submissionsRoutes);
 app.use('/comments', commentsRoutes);
 
+app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.send("User-agent: *\nDisallow: /");
+});
+
 app.get('/stats', generalFunctions.checkForCsv, (req, res) => {
     (async () => {
         const allStats = await apiDbSql.getDashboardStats();
