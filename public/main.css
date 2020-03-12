@@ -44,6 +44,10 @@ code mark {
 
 p {
     font-size: var(--font-size-4);
+    margin-top: var(--spacer-sm);
+    margin-bottom: var(--spacer-sm);
+    margin-right: 0;
+    margin-left: 0;
 }
 
 p code {
