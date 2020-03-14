@@ -20,6 +20,6 @@ exports.getSubmissionsByPage = (req, res) => {
         subredditDbSql.getByPage(req, res, 
             'submissions', page)
     } else {
-        res.status(res.status(404).send('<strong>Not Found</strong>'));
+        res.status(400).send('<strong>Page needs to be an integer.</strong>');
     }
 }
