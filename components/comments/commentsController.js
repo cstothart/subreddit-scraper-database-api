@@ -1,3 +1,5 @@
+const validator = require('validator');
+
 const subredditDbSql = require('../../util/subredditDbSql');
 
 exports.getCommentById = (req, res) => {
@@ -25,7 +27,11 @@ exports.getCommentsByAuthor = (req, res) => {
 }
 
 exports.getCommentsByPage = (req, res) => {
-    const page = req.params.page - 1;
-    subredditDbSql.getByPage(req, res, 
-        'comments', page)
+    if(validator.isInt(req.params.page)) {
+        const page = req.params.page - 1;
+        subredditDbSql.getByPage(req, res, 
+            'comments', page)
+    } else {
+        res.status(res.status(404).send('<strong>Not Found</strong>'));
+    }
 }

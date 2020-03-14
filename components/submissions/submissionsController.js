@@ -1,3 +1,5 @@
+const validator = require('validator');
+
 const subredditDbSql = require('../../util/subredditDbSql');
 
 exports.getSubmissionById = (req, res) => {
@@ -13,7 +15,11 @@ exports.getSubmissionsByAuthor = (req, res) => {
 }
 
 exports.getSubmissionsByPage = (req, res) => {
-    const page = req.params.page - 1;
-    subredditDbSql.getByPage(req, res, 
-        'submissions', page)
+    if(validator.isInt(req.params.page)) {
+        const page = req.params.page - 1;
+        subredditDbSql.getByPage(req, res, 
+            'submissions', page)
+    } else {
+        res.status(res.status(404).send('<strong>Not Found</strong>'));
+    }
 }
