@@ -35,3 +35,5 @@ exports.getCommentsByPage = (req, res) => {
         res.status(400).send('<strong>Page needs to be an integer.</strong>');
     }
 }
+
+exports.returnsPerPage = subredditDbSql.returnsPerPage;

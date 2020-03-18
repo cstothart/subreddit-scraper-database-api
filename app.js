@@ -20,15 +20,17 @@ apiDbSql.createDashboardTable();
 
 app.use(cors());
 
+const limiterWindowM = 15;
+const limiterMax = 100;
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 10
+  windowMs: limiterWindowM * 60 * 1000,
+  max: limiterMax
 });
 
 app.use(limiter);
 
-app.use('/submissions', submissionsRoutes);
-app.use('/comments', commentsRoutes);
+app.use('/submissions', submissionsRoutes.router);
+app.use('/comments', commentsRoutes.router);
 
 app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
@@ -37,15 +39,37 @@ app.get('/robots.txt', (req, res) => {
 
 app.get('/stats', generalFunctions.checkForCsv, (req, res) => {
     (async () => {
-        const allStats = await apiDbSql.getDashboardStats();
+        const {id, ...databaseStats} = await apiDbSql.getDashboardStats();
+        const submissionsByPage = {
+            rateLimitWindowM: submissionsRoutes.limiterWindowM,
+            rateLimitMax: submissionsRoutes.limiterMax,
+            rowsPerPage: submissionsRoutes.returnsPerPage
+        }
+        const commentsByPage = {
+            rateLimitWindowM: commentsRoutes.limiterWindowM,
+            rateLimitMax: commentsRoutes.limiterMax,
+            rowsPerPage: commentsRoutes.returnsPerPage
+        }
+        const general = {
+            rateLimitWindowM: limiterWindowM,
+            rateLimitMax: limiterMax
+        }    
+        statsPackage = {
+            databaseStats, 
+            apiConfig: {
+                general,
+                submissionsByPage, 
+                commentsByPage
+            }
+        }
         if(req.csv) {
-            const csv = parse(allStats);
+            const csv = parse(statsPackage);
             res.setHeader('Content-disposition', 
                         'attachment; filename=data.csv');
             res.set('Content-Type', 'text/csv');                    
             res.status(200).send(csv);
         } else {
-            res.status(200).json(allStats);
+            res.status(200).json(statsPackage);
         }
     })();
 })
