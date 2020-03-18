@@ -15,7 +15,19 @@ const limiter = rateLimit({
 
 router.use(generalFunctions.checkForCsv);
 
-router.get('/:page', limiter, commentsController.getCommentsByPage);
+router.get('/:page', limiter,
+  (req, res, next) => {
+    req.test = false;
+    next();
+  },
+  commentsController.getCommentsByPage);
+
+router.get('/:page/test',
+  (req, res, next) => {
+    req.test = true;
+    next();
+  },
+  commentsController.getCommentsByPage);
 
 router.get('/id/:comment_id', commentsController.getCommentById);
 
@@ -31,5 +43,6 @@ module.exports = {
   router,
   limiterWindowM,
   limiterMax,
-  returnsPerPage: commentsController.returnsPerPage
+  returnsPerPage: commentsController.returnsPerPage,
+  returnsPerPageTest: commentsController.returnsPerPageTest
 }

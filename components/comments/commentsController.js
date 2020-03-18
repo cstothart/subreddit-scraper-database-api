@@ -30,10 +30,11 @@ exports.getCommentsByPage = (req, res) => {
     if(validator.isInt(req.params.page)) {
         const page = req.params.page - 1;
         subredditDbSql.getByPage(req, res, 
-            'comments', page)
+            'comments', page, req.test)
     } else {
         res.status(400).send('<strong>Page needs to be an integer.</strong>');
     }
 }
 
 exports.returnsPerPage = subredditDbSql.returnsPerPage;
+exports.returnsPerPageTest = subredditDbSql.returnsPerPageTest;

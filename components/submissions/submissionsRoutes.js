@@ -15,7 +15,19 @@ const limiter = rateLimit({
 
 router.use(generalFunctions.checkForCsv);
 
-router.get('/:page', limiter, submissionsController.getSubmissionsByPage);
+router.get('/:page', limiter,
+  (req, res, next) => {
+    req.test = false;
+    next();
+  },
+  submissionsController.getSubmissionsByPage);
+
+router.get('/:page/test',
+  (req, res, next) => {
+    req.test = true;
+    next();
+  },
+  submissionsController.getSubmissionsByPage);
 
 router.get('/id/:submission_id', submissionsController.getSubmissionById);
 
@@ -25,5 +37,6 @@ module.exports = {
   router,
   limiterWindowM,
   limiterMax,
-  returnsPerPage: submissionsController.returnsPerPage
+  returnsPerPage: submissionsController.returnsPerPage,
+  returnsPerPageTest: submissionsController.returnsPerPageTest
 }

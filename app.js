@@ -43,12 +43,14 @@ app.get('/stats', generalFunctions.checkForCsv, (req, res) => {
         const submissionsByPage = {
             rateLimitWindowM: submissionsRoutes.limiterWindowM,
             rateLimitMax: submissionsRoutes.limiterMax,
-            rowsPerPage: submissionsRoutes.returnsPerPage
+            rowsPerPage: submissionsRoutes.returnsPerPage,
+            rowsPerPageTest: submissionsRoutes.returnsPerPageTest
         }
         const commentsByPage = {
             rateLimitWindowM: commentsRoutes.limiterWindowM,
             rateLimitMax: commentsRoutes.limiterMax,
-            rowsPerPage: commentsRoutes.returnsPerPage
+            rowsPerPage: commentsRoutes.returnsPerPage,
+            rowsPerPageTest: commentsRoutes.returnsPerPageTest
         }
         const general = {
             rateLimitWindowM: limiterWindowM,

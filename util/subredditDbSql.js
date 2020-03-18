@@ -2,7 +2,8 @@ const { parse } = require('json2csv');
 
 const subredditDb = require('./subredditDb');
 
-const returnsPerPage = 50000;
+const returnsPerPageNoTest = 50000;
+const returnsPerPageTest = 10;
 
 exports.selectAllFromWhere = (req, res, from, where) => {
     subredditDb
@@ -27,7 +28,13 @@ exports.selectAllFromWhere = (req, res, from, where) => {
     .catch(err => res.status(500).send('<strong>Unexpected Error</strong>'));
 }
 
-exports.getByPage = (req, res, from, page) => {
+exports.getByPage = (req, res, from, page, test) => {
+    let returnsPerPage;
+    if(test) {
+        returnsPerPage = returnsPerPageTest;
+    } else {
+        returnsPerPage = returnsPerPageNoTest;
+    }
     const limitOffset = returnsPerPage*page;
     subredditDb
         .select('*')
@@ -53,4 +60,5 @@ exports.getByPage = (req, res, from, page) => {
         .catch(err => res.status(500).send('<strong>Unexpected Error</strong>'));
 }
 
-exports.returnsPerPage = returnsPerPage;
+exports.returnsPerPage = returnsPerPageNoTest;
+exports.returnsPerPageTest = returnsPerPageTest;
