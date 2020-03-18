@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const rateLimit = require("express-rate-limit");
 const { parse } = require('json2csv');
+const rateLimit = require("express-rate-limit");
 
 const apiDbSql = require('./util/apiDbSql');
 const generalFunctions = require('./util/generalFunctions');
@@ -18,14 +18,13 @@ app.set("views", path.join(__dirname, "views"));
 // Create the dashboard table if it doesn't already exist.
 apiDbSql.createDashboardTable();
 
-const windowM = 15;
-const max = 100;
+app.use(cors());
+
 const limiter = rateLimit({
-  windowMs: windowM * 60 * 1000,
-  max: max
+  windowMs: 15 * 60 * 1000,
+  max: 10
 });
 
-app.use(cors());
 app.use(limiter);
 
 app.use('/submissions', submissionsRoutes);
@@ -58,8 +57,7 @@ app.get('/', (req, res) => {
         const { id, 'Last Updated': last_updated, ...stats } = prettyStats;
         res.render('dashboard', {
                 lastUpdated: prettyStats['Last Updated'],
-                stats: stats,
-                rateLimit: Object.assign(req.rateLimit, {windowM, max})
+                stats: stats
         });
     })();
 });

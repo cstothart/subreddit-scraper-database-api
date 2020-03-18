@@ -26,7 +26,7 @@ exports.selectAllFromWhere = (req, res, from, where) => {
 }
 
 exports.getByPage = (req, res, from, page) => {
-    const returnsPerPage = 10000;
+    const returnsPerPage = 2; //50000;
     const limitOffset = returnsPerPage*page;
     subredditDb
         .select('*')
