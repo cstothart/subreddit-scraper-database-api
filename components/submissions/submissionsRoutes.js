@@ -31,7 +31,7 @@ router.get('/:page/test',
 
 router.get('/id/:submission_id', submissionsController.getSubmissionById);
 
-router.get('/author/:author', submissionsController.getSubmissionsByAuthor);
+router.get('/author_id/:author_id', submissionsController.getSubmissionsByAuthor);
 
 module.exports = {
   router,

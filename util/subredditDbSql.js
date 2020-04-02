@@ -5,11 +5,43 @@ const subredditDb = require('./subredditDb');
 const returnsPerPageNoTest = 50000;
 const returnsPerPageTest = 10;
 
+const authorCode = 'srs1-crs-';
+
+const submissionColumns = [
+    'submissions.submission_fullname',
+    'submissions.title',
+    'submissions.num_comments',
+    'submissions.score',
+    'submissions.upvote_ratio',
+    'submissions.created_utc',
+    'submissions.body'
+].join();
+
+const commentColumns = [
+    'comments.comment_fullname',
+    'comments.submission_fullname',
+    'comments.parent_id',
+    'comments.score',
+    'comments.created_utc',
+    'comments.edited',
+    'comments.body'
+].join();
+
 exports.selectAllFromWhere = (req, res, from, where) => {
+    let columns;
+    if(from === 'submissions') {
+        columns = submissionColumns;
+    } 
+    else if(from === 'comments') {
+        columns = commentColumns;
+    }
     subredditDb
-        .select('*')
+        .select(subredditDb.raw(`${columns}, 
+            REPLACE(${from}.author, authors.author, 
+                CONCAT('${authorCode}', authors.id)) AS author_id`))
         .from(from)
-        .where(where)
+        .leftOuterJoin('authors', `${from}.author`, 'authors.author')
+        .where(subredditDb.raw(where))
         .then(result => {
             if(result.length) {
                 if(req.csv) {
@@ -25,7 +57,7 @@ exports.selectAllFromWhere = (req, res, from, where) => {
                 res.status(404).send('<strong>Not Found</strong>')
             }
         })
-    .catch(err => res.status(500).send('<strong>Unexpected Error</strong>'));
+    .catch(console.log) //err => res.status(500).send('<strong>Unexpected Error</strong>'));
 }
 
 exports.getByPage = (req, res, from, page, test) => {

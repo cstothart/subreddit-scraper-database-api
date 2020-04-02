@@ -3,27 +3,27 @@ const validator = require('validator');
 const subredditDbSql = require('../../util/subredditDbSql');
 
 exports.getCommentById = (req, res) => {
-    const { comment_id } = req.params;
+    const comment_fullname = req.params.comment_id;
     subredditDbSql.selectAllFromWhere(req, res, 
-        'comments', {comment_id});
+        'comments', `comments.comment_fullname='${comment_fullname}'`);
 }
 
 exports.getCommentBySubmissionId = (req, res) => {
     const submission_fullname = req.params.submission_id;
     subredditDbSql.selectAllFromWhere(req, res, 
-        'comments', { submission_fullname });
+        'comments', `comments.submission_fullname='${submission_fullname}'`);
 }
 
 exports.getCommentByParentId = (req, res) => {
     const { parent_id } = req.params;
     subredditDbSql.selectAllFromWhere(req, res, 
-        'comments', { parent_id });
+        'comments', `comments.parent_id='${parent_id}'`);
 }
 
 exports.getCommentsByAuthor = (req, res) => {
-    const { author } = req.params;
+    const { author_id } = req.params;
     subredditDbSql.selectAllFromWhere(req, res, 
-        'comments', {author});
+        'comments', `CONCAT('srs1-crs-', authors.id)='${author_id}'`);
 }
 
 exports.getCommentsByPage = (req, res) => {

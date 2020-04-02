@@ -5,13 +5,13 @@ const subredditDbSql = require('../../util/subredditDbSql');
 exports.getSubmissionById = (req, res) => {
     const submission_fullname = req.params.submission_id;
     subredditDbSql.selectAllFromWhere(req, res, 
-        'submissions', {submission_fullname});
+        'submissions', `submissions.submission_fullname='${submission_fullname}'`);
 }
 
 exports.getSubmissionsByAuthor = (req, res) => {
-    const { author } = req.params;
+    const { author_id } = req.params;
     subredditDbSql.selectAllFromWhere(req, res, 
-        'submissions', {author});
+        'submissions', `CONCAT('srs1-crs-', authors.id)='${author_id}'`);
 }
 
 exports.getSubmissionsByPage = (req, res) => {

@@ -37,7 +37,7 @@ router.get('/submission_id/:submission_id',
 router.get('/parent_id/:parent_id', 
            commentsController.getCommentByParentId);           
 
-router.get('/author/:author', commentsController.getCommentsByAuthor);
+router.get('/author_id/:author_id', commentsController.getCommentsByAuthor);
 
 module.exports = {
   router,

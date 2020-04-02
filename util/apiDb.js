@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const mysql = require('pg');
+const pg = require('pg');
 const knex = require('knex');
 
 const apiDb = knex({
