@@ -68,9 +68,19 @@ exports.getByPage = (req, res, from, page, test) => {
         returnsPerPage = returnsPerPageNoTest;
     }
     const limitOffset = returnsPerPage*page;
+    let columns;
+    if(from === 'submissions') {
+        columns = submissionColumns;
+    } 
+    else if(from === 'comments') {
+        columns = commentColumns;
+    }
     subredditDb
-        .select('*')
+        .select(subredditDb.raw(`${columns}, 
+            REPLACE(${from}.author, authors.author, 
+                CONCAT('${authorCode}', authors.id)) AS author_id`))
         .from(from)
+        .leftOuterJoin('authors', `${from}.author`, 'authors.author')
         .orderBy('time_entered_into_database')
         .limit(returnsPerPage)
         .offset(limitOffset)
