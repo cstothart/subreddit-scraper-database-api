@@ -1,5 +1,6 @@
 const express = require('express');
 const rateLimit = require("express-rate-limit");
+const { param, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -15,7 +16,9 @@ const limiter = rateLimit({
 
 router.use(generalFunctions.checkForCsv);
 
-router.get('/:page', limiter,
+router.get('/:page', 
+  limiter,
+  [param('page').escape()],
   (req, res, next) => {
     req.test = false;
     next();
@@ -23,21 +26,28 @@ router.get('/:page', limiter,
   commentsController.getCommentsByPage);
 
 router.get('/:page/test',
+  [param('page').escape()],
   (req, res, next) => {
     req.test = true;
     next();
   },
   commentsController.getCommentsByPage);
 
-router.get('/id/:comment_id', commentsController.getCommentById);
+router.get('/id/:comment_id',
+  [param('comment_id').escape()],
+  commentsController.getCommentById);
 
-router.get('/submission_id/:submission_id', 
-           commentsController.getCommentBySubmissionId);
+router.get('/submission_id/:submission_id',
+  [param('submission_id').escape()],
+  commentsController.getCommentBySubmissionId);
 
-router.get('/parent_id/:parent_id', 
-           commentsController.getCommentByParentId);           
+router.get('/parent_id/:parent_id',
+  [param('parent_id').escape()], 
+  commentsController.getCommentByParentId);           
 
-router.get('/author_id/:author_id', commentsController.getCommentsByAuthor);
+router.get('/author_id/:author_id',
+  [param('author_id').escape()],
+  commentsController.getCommentsByAuthor);
 
 module.exports = {
   router,

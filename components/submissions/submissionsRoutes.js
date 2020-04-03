@@ -1,5 +1,6 @@
 const express = require('express');
 const rateLimit = require("express-rate-limit");
+const { param, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -15,7 +16,9 @@ const limiter = rateLimit({
 
 router.use(generalFunctions.checkForCsv);
 
-router.get('/:page', limiter,
+router.get('/:page',
+  limiter,
+  [param('page').escape()],
   (req, res, next) => {
     req.test = false;
     next();
@@ -23,15 +26,20 @@ router.get('/:page', limiter,
   submissionsController.getSubmissionsByPage);
 
 router.get('/:page/test',
+  [param('page').escape()],
   (req, res, next) => {
     req.test = true;
     next();
   },
   submissionsController.getSubmissionsByPage);
 
-router.get('/id/:submission_id', submissionsController.getSubmissionById);
+router.get('/id/:submission_id',
+  [param('submission_id').escape()],
+  submissionsController.getSubmissionById);
 
-router.get('/author_id/:author_id', submissionsController.getSubmissionsByAuthor);
+router.get('/author_id/:author_id', 
+  [param('author_id').escape()],
+  submissionsController.getSubmissionsByAuthor);
 
 module.exports = {
   router,
