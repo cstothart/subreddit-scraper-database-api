@@ -1,9 +1,7 @@
-const { DateTime } = require('luxon');
-
 const apiDb = require('./apiDb');
 
 exports.createDashboardTable = () => {
-    const last_updated = DateTime.local().setZone('America/New_York').toISO();
+    const last_updated = new Date().toISOString();
     apiDb.schema.hasTable('dashboard')
     .then(exists => {
         if(!exists) {
@@ -11,17 +9,17 @@ exports.createDashboardTable = () => {
                 table.increments();
                 table.integer('Submissions');
                 table.integer('Comments');
-                table.integer('Submission_Authors');
-                table.integer('Comment_Authors');
-                table.datetime('Last_Updated', options={useTz: false});
+                table.integer('Authors');
+                table.integer('Words');
+                table.string('Last_Updated');
             })
             // Insert default values.
             .then(() => {
                 return apiDb('dashboard').insert({
                     Submissions: 999,
                     Comments: 999,
-                    Submission_Authors: 999,
-                    Comment_Authors: 999,
+                    Authors: 999,
+                    Words: 999,
                     Last_Updated: last_updated
                 })
             }).catch(console.log)

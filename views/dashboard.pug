@@ -3,13 +3,13 @@ doctype html
 html
 
     head
-        title Subreddit Database Status
+        title Subreddit Database
         style
             include ../public/main.css
 
     body
 
-        h1 Subreddit Database Status
+        h1 Subreddit Database
 
         .stats-container
             
@@ -20,9 +20,9 @@ html
 
         .last-updated 
             | Last Updated: 
-            mark #{lastUpdated}
+            mark#last_updated_date #{lastUpdated}
 
-        h1 API Endpoints
+        h1 Database Endpoints
 
         p
             | Data is delivered in JSON. Place 
@@ -64,5 +64,8 @@ html
 
         code
             | /comments/parent_id/
-            mark parent_id                                        
+            mark parent_id
+
+        script
+            include ../public/main.js                              
         

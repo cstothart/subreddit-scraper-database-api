@@ -1,5 +1,3 @@
-const { DateTime } = require('luxon');
-
 exports.prettifyStats = stats => {
     const prettyStats = {};
     Object.entries(stats).forEach(pair => {
