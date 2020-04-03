@@ -34,7 +34,7 @@ updateDashboardTable = (stats) => {
     const numAuthors = await getNumEntries('authors');
 
     const numWordsSubmissions = await getNumWords('submissions');
-    const numWordsComments = await getNumWords('submissions');
+    const numWordsComments = await getNumWords('comments');
     const numWords = numWordsSubmissions + numWordsComments;
     
     const last_updated = new Date().toISOString();
