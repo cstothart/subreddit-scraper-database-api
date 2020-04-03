@@ -11,17 +11,16 @@ const apiDb = require('../util/apiDb');
 getNumEntries = table => {
     return subredditDb(table)
         .count('*')
-        .then((result) => {
-            return result[0]['count(*)'];
-        });
+        .then(result => result[0]['count(*)']);
 }
 
-getNumAuthors = table => {
+getNumWords = table => {
     return subredditDb(table)
-        .countDistinct('author')
-        .then((result) => {
-            return result[0]['count(distinct `author`)'];
-        });
+        .select(subredditDb.raw(
+            `sum(LENGTH(body) - LENGTH(REPLACE(body, ' ', '')) + 1)`
+            )
+        )
+        .then(result => result[0]["sum(LENGTH(body) - LENGTH(REPLACE(body, ' ', '')) + 1)"]);
 }
 
 updateDashboardTable = (stats) => {
@@ -34,17 +33,19 @@ updateDashboardTable = (stats) => {
 
     const numSubmissions = await getNumEntries('submissions');
     const numComments = await getNumEntries('comments');
+    const numAuthors = await getNumEntries('authors');
 
-    const numSubmissionAuthors = await getNumAuthors('submissions');
-    const numCommentAuthors = await getNumAuthors('comments');
-
-    const last_updated = DateTime.local().setZone('America/Chicago').toISO()
+    const numWordsSubmissions = await getNumWords('submissions');
+    const numWordsComments = await getNumWords('submissions');
+    const numWords = numWordsSubmissions + numWordsComments;
+    
+    const last_updated = new Date().toISOString();
 
     const stats = {
         Submissions: numSubmissions,
         Comments: numComments,
-        Submission_Authors: numSubmissionAuthors,
-        Comment_Authors: numCommentAuthors,
+        Authors: numAuthors,
+        Words: numWords,
         Last_Updated: last_updated
     }
 
