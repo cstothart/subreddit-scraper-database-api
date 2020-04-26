@@ -154,6 +154,7 @@ h1:first-child {
         display: flex;
         align-items: center;
         flex: 1 100%;
+        margin-top: 0;
         margin-right: 0;
         margin-left: 0;
     }
@@ -172,5 +173,9 @@ h1:first-child {
         font-size: var(--font-size-3);
         margin: 0;
     }    
+
+    .last-updated {
+        margin-top: 0;
+    }
     
 }
