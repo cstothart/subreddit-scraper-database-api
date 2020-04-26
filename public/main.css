@@ -11,6 +11,7 @@
     --font-size-1: 1rem;
     --font-size-2: 1.5rem;
     --font-size-3: 2rem;
+    --font-size-3a: 3rem;
     --font-size-4: 4rem;
     --spacer-sm: 1rem;
     --spacer-md: 3rem;
@@ -150,18 +151,26 @@ h1:first-child {
 @media (max-width: 800px) {
 
     .stats-item {
-        border-radius: 0;
+        display: flex;
+        align-items: center;
         flex: 1 100%;
-        margin: 0;
+        margin-right: 0;
+        margin-left: 0;
     }
 
     .stats-item h2 {
         display: inline;
+        flex: 1;
+        text-align: left;
+        font-size: var(--font-size-1);
     }
 
     .stats-item p {
         display: inline;
+        text-align: right;
+        flex: 2;
         font-size: var(--font-size-3);
+        margin: 0;
     }    
     
 }
