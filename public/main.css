@@ -148,7 +148,7 @@ h1:first-child {
     color: var(--color-4);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 500px) {
 
     .stats-item {
         display: flex;
