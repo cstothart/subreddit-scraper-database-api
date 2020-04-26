@@ -8,11 +8,11 @@
     --color-5: #ca73e2;
     --color-6: #eb4e46;
     --color-7: #5dc094;
-    --font-size-1: 4rem;
+    --font-size-1: 1rem;
     --font-size-2: 1.5rem;
     --font-size-3: 2rem;
-    --font-size-4: 1rem;
-    --spacer-sm: 1.5rem;
+    --font-size-4: 4rem;
+    --spacer-sm: 1rem;
     --spacer-md: 3rem;
 }
 
@@ -26,6 +26,11 @@ html {
     padding-bottom: 0;
     padding-top: 0;
     color: var(--color-3)
+}
+
+body {
+    margin: 0;
+    padding: 0;
 }
 
 code {
@@ -43,7 +48,7 @@ code mark {
 }
 
 p {
-    font-size: var(--font-size-4);
+    font-size: var(--font-size-1);
     margin-top: var(--spacer-sm);
     margin-bottom: var(--spacer-sm);
     margin-right: 0;
@@ -60,16 +65,20 @@ p mark {
 }
 
 @media (min-width: 800px) {
+
     html {
       font-size: 18px;
     }
+
 }
 
 @media (min-width: 1200px) {
+
     html {
       font-size: 20px;
       line-height: 1.4;
     }
+
 }
 
 h1 {
@@ -88,10 +97,8 @@ h1:first-child {
     margin-left: 0;
 }
 
-
-
 .last-updated {
-    font-size: var(--font-size-4);
+    font-size: var(--font-size-1);
     font-weight: 900;
     color: var(--color-3);
     margin-top: var(--spacer-sm);
@@ -107,19 +114,18 @@ h1:first-child {
 }
 
 .stats-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    grid-gap: var(--spacer-sm);
-
-
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .stats-item {
     color: var(--color-3);
-    font-size: var(--font-size-1);
+    flex: 1 0;
+    font-size: var(--font-size-4);
     font-weight: 900;
     background-color: var(--color-2);
-    padding: 1rem;
+    padding: var(--spacer-sm);
+    margin: var(--spacer-sm);
     border-radius: 1rem;
 }
 
@@ -136,7 +142,26 @@ h1:first-child {
     margin-right: 0;
     margin-left: 0;
     padding: 0;
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-4);
     text-align: center;
     color: var(--color-4);
+}
+
+@media (max-width: 800px) {
+
+    .stats-item {
+        border-radius: 0;
+        flex: 1 100%;
+        margin: 0;
+    }
+
+    .stats-item h2 {
+        display: inline;
+    }
+
+    .stats-item p {
+        display: inline;
+        font-size: var(--font-size-3);
+    }    
+    
 }

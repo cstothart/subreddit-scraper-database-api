@@ -3,6 +3,7 @@ doctype html
 html
 
     head
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
         title Subreddit Database
         style
             include ../public/main.css
@@ -14,9 +15,9 @@ html
         .stats-container
             
             each val, index in stats
-                .stats-item
+                .stats-item              
                     h2 #{index}
-                    p #{val}
+                    p #{val}                    
 
         .last-updated 
             | Last Updated: 
