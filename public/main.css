@@ -65,23 +65,6 @@ p mark {
     background-color: transparent;    
 }
 
-@media (min-width: 800px) {
-
-    html {
-      font-size: 18px;
-    }
-
-}
-
-@media (min-width: 1200px) {
-
-    html {
-      font-size: 20px;
-      line-height: 1.4;
-    }
-
-}
-
 h1 {
     margin-top: var(--spacer-md);
     margin-bottom: var(--spacer-sm);
@@ -116,8 +99,9 @@ h1:first-child {
 
 .stats-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     grid-gap: var(--spacer-sm);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr); 
 }
 
 .stats-item {
@@ -147,11 +131,37 @@ h1:first-child {
     color: var(--color-4);
 }
 
+@media (min-width: 1200px) {
+
+  html {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .stats-container {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: none;
+  }
+
+}
+
+@media (min-width: 800px) {
+
+  html {
+    font-size: 14px;
+  }
+
+  .stats-container {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: none;
+  }
+
+}
+
 @media (max-width: 500px) {
 
-    .stats-container {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
+    code {
+        overflow-wrap: break-word;
     }
 
     .stats-item h2 {
