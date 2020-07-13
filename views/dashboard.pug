@@ -2,71 +2,75 @@ doctype html
 
 html
 
-    head
-        meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        title Subreddit Database
-        style
-            include ../public/main.css
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Subreddit Database
+    style
+        include ../public/main.css
 
-    body
+  body
 
-        h1 Soldier Opinions Scraper for Reddit
+    div#ie This page does not support Internet Explorer. Please use another browser.
 
-        .stats-container
-            
-            each val, index in stats
-                .stats-item              
-                    h2 #{index}
-                    p #{val}                    
+    div#no-ie
 
-        .last-updated 
-            | Last Updated: 
-            mark#last_updated_date #{lastUpdated}
+      h1 Soldier Opinions Scraper for Reddit
 
-        h1 Database Endpoints
+      .stats-container
+          
+          each val, index in stats
+              .stats-item              
+                  h2 #{index}
+                  p #{val}     
 
-        p
-            | Data is delivered in JSON. Place 
-            code ?csv 
-            | after the endpoint for .csv instead of JSON.
+      .last-updated 
+          | Last Updated: 
+          mark#last_updated_date #{lastUpdated}
 
-        p Place /test after a page endpoint for pages that have both fewer rows and less-restrictive rate limits.
+      h1 Database Endpoints
 
-        code
-            |/stats  
+      p
+          | Data is delivered in JSON. Place 
+          code ?csv 
+          | after the endpoint for .csv instead of JSON.
 
-        code
-            | /submissions/
-            mark page
+      p Place /test after a page endpoint for pages that have both fewer rows and less-restrictive rate limits.
 
-        code
-            | /submissions/author_id/
-            mark author_id
+      code
+          |/stats  
 
-        code
-            | /submissions/id/
-            mark id    
+      code
+          | /submissions/
+          mark page
 
-        code
-            | /comments/
-            mark page   
+      code
+          | /submissions/author_id/
+          mark author_id
 
-        code
-            | /comments/author_id/
-            mark author_id  
+      code
+          | /submissions/id/
+          mark id    
 
-        code
-            | /comments/id/
-            mark id
+      code
+          | /comments/
+          mark page   
 
-        code
-            | /comments/submission_id/
-            mark submission_id   
+      code
+          | /comments/author_id/
+          mark author_id  
 
-        code
-            | /comments/parent_id/
-            mark parent_id
+      code
+          | /comments/id/
+          mark id
 
-        script
-            include ../public/main.js                              
-        
+      code
+          | /comments/submission_id/
+          mark submission_id   
+
+      code
+          | /comments/parent_id/
+          mark parent_id
+
+      script
+          include ../public/main.js                              
+      
