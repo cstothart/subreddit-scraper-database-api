@@ -77,7 +77,7 @@ app.get('/stats', generalFunctions.checkForCsv, (req, res) => {
 })
 
 app.get('/', (req, res) => {
-    const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    const fullUrl = req.get('host') + req.originalUrl;
     (async () => {
         const allStats = await apiDbSql.getDashboardStats();
         const prettyStats = generalFunctions.prettifyStats(allStats);
