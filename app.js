@@ -77,13 +77,15 @@ app.get('/stats', generalFunctions.checkForCsv, (req, res) => {
 })
 
 app.get('/', (req, res) => {
+    const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     (async () => {
         const allStats = await apiDbSql.getDashboardStats();
         const prettyStats = generalFunctions.prettifyStats(allStats);
         const { id, 'Last Updated': last_updated, ...stats } = prettyStats;
         res.render('dashboard', {
                 lastUpdated: prettyStats['Last Updated'],
-                stats: stats
+                stats: stats,
+                fullUrl: fullUrl
         });
     })();
 });
