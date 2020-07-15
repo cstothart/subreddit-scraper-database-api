@@ -9,6 +9,8 @@ const generalFunctions = require('./util/generalFunctions');
 const submissionsRoutes = require('./components/submissions/submissionsRoutes');
 const commentsRoutes = require('./components/comments/commentsRoutes');
 
+require('dotenv').config();
+
 const app = express();
 
 // Set up views.
@@ -85,7 +87,8 @@ app.get('/', (req, res) => {
         res.render('dashboard', {
                 lastUpdated: prettyStats['Last Updated'],
                 stats: stats,
-                fullUrl: fullUrl
+                fullUrl: fullUrl,
+                appTitle: process.env.APP_TITLE
         });
     })();
 });
