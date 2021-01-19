@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const { parse } = require('json2csv');
-const rateLimit = require("express-rate-limit");
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 
 const apiDbSql = require('./util/apiDbSql');
 const generalFunctions = require('./util/generalFunctions');
@@ -21,6 +22,8 @@ app.set("views", path.join(__dirname, "views"));
 apiDbSql.createDashboardTable();
 
 app.use(cors());
+
+app.use(helmet());
 
 const limiterWindowM = 15;
 const limiterMax = 100;
