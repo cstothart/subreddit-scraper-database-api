@@ -23,7 +23,11 @@ apiDbSql.createDashboardTable();
 
 app.use(cors());
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 const limiterWindowM = 15;
 const limiterMax = 100;
